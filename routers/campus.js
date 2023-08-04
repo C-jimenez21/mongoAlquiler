@@ -13,4 +13,20 @@ appCampus.get('/', limitGet(),async(req, res) => {
     res.send(result);
 });
 
+appCampus.post('/', limitGet(),async(req, res) => {
+    if(!req.rateLimit)return;
+    let db = await con();
+    let user = db.collection('user');
+    try {
+        let result = await user.insertOne(req.body);
+        console.log(result);
+        res.send(result);
+    } catch (error) {
+        console.log(error.errInfo.details.schemaRulesNotSatisfied[0]);
+        res.send("Something went wrong")
+    }
+});
+
+
+
 export default appCampus;
