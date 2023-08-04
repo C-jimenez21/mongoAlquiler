@@ -2,15 +2,52 @@ use("DB_Limit_Mongo");
 db.createCollection("user",{
     capped: true,
     size:690,
-    max:5
+    max:5,
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            additionalProperties: false,
+            required: ['name', 'age'],
+            properties:{
+                _id:{
+                    bsonType: 'objectId',
+                    description: 'The _id must be string'
+                },
+                name: {
+                    bsonType: 'string',
+                    description: 'The atribute name is required and must be string.'
+                },
+                last_name:{
+                    bsonType: 'string',
+                    description: 'The last last_name must be string'
+                },
+                age: {
+                    bsonType: 'int',
+                    description: 'The atribute age is required and must be a number'
+                }
+            },
+            allOf:[
+                {
+                    properties: {
+                        email:{
+                            bsonType: 'string',
+                            description: 'The email is not required but is available in the database'
+                        }
+                    }
+                }
+            ]
+
+        }
+    }
 });
+
 
 use("DB_Limit_Mongo");
 db.user.insertMany([
     {
-    "name" : "Cristian",
-    "last_name" : "Jimenez",
-    "age" : 22
+    "name" :"Angie",
+    "last_name" :"Calderon",
+    "age" : 25
 },
 {
     "name" : "Lucho",
@@ -26,7 +63,7 @@ db.user.insertMany([
     "name" : "Ivan",
     "last_name" : "Garces",
     "age" : 23
-},-
+},
 {
     "name" : "Adrian",
     "last_name" : "Bueno",
