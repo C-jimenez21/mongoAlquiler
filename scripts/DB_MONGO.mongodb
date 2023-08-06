@@ -633,12 +633,35 @@ use("DB_SQL_ALQUILERV1");
 
 
 /* 18. Obtener la cantidad total de alquileres registrados en la base de datos */
+
 use("DB_SQL_ALQUILERV1");
+db.Alquiler.aggregate(
+    {
+        $count: "Cantidad total de alquileres" 
+    }
+    )
+
+    /*
+    use("DB_SQL_ALQUILERV1");
+    db.Alquiler.countDocuments();
+    
+    }use("DB_SQL_ALQUILERV1");
+db.Alquiler.aggregate([
+    {$count: 'ID_Alquiler'},
+    {
+        $project: {
+            'Total de Alquileres' : '$ID_Alquiler'
+        }
+    }
+]);
+*/
 
 
 /* 19. Mostrar los automóviles con capacidad igual a 5 personas y que
 estén disponibles.*/
 use("DB_SQL_ALQUILERV1");
+
+
 
 /* 20. Obtener los datos del cliente que realizó la reserva con ID_Reserva específico. */
 use("DB_SQL_ALQUILERV1");
