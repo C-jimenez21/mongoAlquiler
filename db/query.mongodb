@@ -7,11 +7,15 @@ db.createCollection("user",{
         $jsonSchema: {
             bsonType: 'object',
             additionalProperties: false,
-            required: ['name', 'age'],
+            required: ['cc','name', 'age'],
             properties:{
                 _id:{
                     bsonType: 'objectId',
                     description: 'The _id must be string'
+                },
+                cc: {
+                    bsonType: 'int',
+                    description: 'The atribute cc is required and must be a number'
                 },
                 name: {
                     bsonType: 'string',
@@ -32,7 +36,7 @@ db.createCollection("user",{
                         email:{
                             bsonType: 'string',
                             description: 'The email is not required but is available in the database'
-                        }
+                        },
                     }
                 }
             ]
