@@ -1,50 +1,53 @@
 use("DB_Limit_Mongo");
-db.createCollection("user",{
+db.createCollection("usuario",{
     capped: true,
-    size:690,
-    max:5,
+    size : 690, 
+    max : 5,
     validator: {
         $jsonSchema: {
-            bsonType: 'object',
-            additionalProperties: false,
-            required: ['cc','name', 'age'],
-            properties:{
-                _id:{
-                    bsonType: 'objectId',
-                    description: 'The _id must be string'
-                },
-                cc: {
-                    bsonType: 'int',
-                    description: 'The atribute cc is required and must be a number'
-                },
-                name: {
-                    bsonType: 'string',
-                    description: 'The atribute name is required and must be string.'
-                },
-                last_name:{
-                    bsonType: 'string',
-                    description: 'The last last_name must be string'
-                },
-                age: {
-                    bsonType: 'int',
-                    description: 'The atribute age is required and must be a number'
-                }
+          bsonType: 'object',
+          additionalProperties: false,
+          required: ['cc', 'nombre', 'edad'],
+          properties: {
+            _id:{
+                bsonType: 'objectId',
             },
-            allOf:[
-                {
-                    properties: {
-                        email:{
-                            bsonType: 'string',
-                            description: 'The email is not required but is available in the database'
-                        },
+            cc:{
+                bsonType: "int",
+                description: "La cedula es obligatorio y tiene que se de tipo numerico"
+            },
+            nombre: { 
+                // https://www.mongodb.com/docs/atlas/app-services/schemas/types/#std-label-schema-type-string
+                bsonType: 'string',
+                description: '{"status": "402", "message": "El nombre_usuario es obligatorio y solo resive letras"}' ,
+                pattern: "^[a-zA-Z ]+$"
+            },
+            apellido: { 
+                bsonType: 'string',
+                description: 'El apellido debe ser un string' 
+            },
+            edad: { 
+                bsonType: 'int',
+                description: '{"status": "402", "message": "La edad_usuario es obligatorio y debe ser un numero"}' 
+            }
+          },
+          allOf: [
+            {
+                properties: {
+                    email: {
+                        bsonType: 'string',
+                        description: 'El email no es obligatorio ni opcional pero se acepta el dato'
+                    },
+                    apodo: {
+                        bsonType: 'string',
+                        description: 'El apodo no es obligatorio ni opcional pero se acepta el dato'
                     }
                 }
-            ]
-
-        }
+            }
+          ],
+        },
     }
 });
-
 
 use("DB_Limit_Mongo");
 db.user.insertMany([

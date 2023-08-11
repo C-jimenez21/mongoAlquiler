@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import {MongoClient} from "mongodb"
-dotenv.config();
+dotenv.config("../");
 export async function con(){
     try {
         const URI = `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@cluster0.qbqr4gp.mongodb.net/${process.env.ATLAS_DATABASE}`;
