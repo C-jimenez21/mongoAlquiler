@@ -257,6 +257,67 @@ const getAutomovilCapacidad = async (req, res, next) => {
     }
 };
 
+/* 12. Obtener los detalles del alquiler que tiene fecha de inicio en '2023-07-05'. */
+const getAlquilerFecha = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let alquiler = db.collection('alquiler');
+        let TotalAutomoviles = await alquiler.find(
+            {
+                inicio: {$eq:"2023-07-05"}
+            }  
+        ).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+/* 13. Listar las reservas pendientes realizadas por un cliente específico. */
+const getReservasPorCliente = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let reserva = db.collection('reserva');
+        let TotalAutomoviles = await reserva.find(
+            {
+                cliente:parseInt(req.params.id_cliente)
+            },
+            {
+                _id: 0
+            }
+        ).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+/* 14. Mostrar los empleados con cargo de "Gerente" o "Asistente". */
+const getEmpleadosCargo = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let empleado = db.collection('empleado');
+        let TotalAutomoviles = await empleado.find(
+            {
+                $or: [{cargo: "Gerente"}, {cargo: "Asistente"}]
+            },
+            {
+                _id: 0
+            }
+        ).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+
+
+
+
 
 export{
     getAlquilerClientes,
@@ -268,5 +329,8 @@ export{
     getTotalAutomovilesDisponibles,
     getCostoAlquiler,
     getClientesDNI,
-    getAutomovilCapacidad
+    getAutomovilCapacidad,
+    getAlquilerFecha,
+    getReservasPorCliente,
+    getEmpleadosCargo
 }
