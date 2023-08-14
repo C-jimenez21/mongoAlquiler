@@ -314,10 +314,168 @@ const getEmpleadosCargo = async (req, res, next) => {
     }
 };
 
+/* 15. Obtener los datos de los clientes que realizaron al menos un alquiler */
+
+const getClienteConAlquiler = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let cliente = db.collection('cliente');
+        let TotalAutomoviles = await cliente.aggregate([
+            {
+                $lookup: {
+                    from: "alquiler",
+                    localField: "cliente",
+                    foreignField: "cliente",
+                    as: "alquileres"
+                }
+            },
+            {
+                $match: {
+                    "alquileres": { $gt: [] }  // Filtrar los clientes con alquileres
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    cliente: 1,
+                    nombre: 1,
+                    apellido: 1,
+                    documento: 1,
+                    direccion: 1,
+                    numero: 1,
+                    Email: 1
+                }
+            }
+        ]).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+/* 16. Listar todos los automóviles ordenados por marca y modelo. */
+const getOrderAutoMarcaModelo = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let automovil = db.collection('automovil');
+        let TotalAutomoviles = await automovil.aggregate([
+            {
+                $group: {
+                    _id: "$marca",
+                    modelos: {
+                        $push: "$$ROOT"
+                    }
+                }
+            },
+            {
+                $project: {
+                    "modelos._id": 0,
+                    "modelos.marca": 0
+                }
+            },
+            { $sort: {_id: 1} }
+        ]).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+/* 17. Mostrar la cantidad total de automóviles en cada sucursal junto con su dirección. */
+const getCantidadAutoBySucursal = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let sucursal = db.collection('sucursal');
+        let TotalAutomoviles = await sucursal.aggregate([
+            {
+                $lookup: {
+                    from: "sucursal_automovil",
+                    localField: "sucursal_id",
+                    foreignField: "sucursal",
+                    as: "automoviles"
+                }
+            },
+            {
+                $unwind: "$automoviles"
+            },
+            {
+                $lookup: {
+                    from: "automovil",
+                    localField: "automoviles.automovil",
+                    foreignField: "automovil",
+                    as: "info_automovil"
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        sucursal_id: "$sucursal_id",
+                        nombre: "$nombre",
+                        direccion: "$direccion"
+                    },
+                    cantidad_automoviles: { $sum: "$automoviles.cantidad_autos" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    sucursal_id: "$_id.sucursal_id",
+                    nombre_sucursal: "$_id.nombre",
+                    direccion: "$_id.direccion",
+                    cantidad_automoviles: 1
+                }
+            }
+        ]).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
 
 
+/* 18. Obtener la cantidad total de alquileres registrados en la base de datos */
+const getCantidadAlquileres = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let alquiler = db.collection('alquiler');
+        let TotalAutomoviles = await alquiler.aggregate([
+            {$count: 'alquiler'},
+            {
+                $project: {
+                    'Total de Alquileres' : '$alquiler'
+                }
+            }
+        ]).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
 
-
+/* 19. Mostrar los automóviles con capacidad igual a 5 personas y que
+estén disponibles.*/
+const getAutoCapacidadMayorCinco = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let automovil = db.collection('automovil');
+        let TotalAutomoviles = await automovil.find(
+            {
+                capacidad: {$gt: 5}
+            },
+            {
+                _id: 0
+            }
+        ).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
 
 export{
     getAlquilerClientes,
@@ -332,5 +490,10 @@ export{
     getAutomovilCapacidad,
     getAlquilerFecha,
     getReservasPorCliente,
-    getEmpleadosCargo
+    getEmpleadosCargo,
+    getClienteConAlquiler,
+    getOrderAutoMarcaModelo,
+    getCantidadAutoBySucursal,
+    getCantidadAlquileres,
+    getAutoCapacidadMayorCinco
 }

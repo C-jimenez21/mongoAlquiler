@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {con} from '../db/atlas.js'
 import {limitGet} from '../limit/config.js';
 import {appMiddlewareCampusVerify, appDTOData} from '../middlewares/campus.middleware.js';
-import {getEmpleadosCargo, getReservasPorCliente, getAlquilerFecha ,getAutomovilCapacidad, getClientesDNI, getCostoAlquiler, getTotalAutomovilesDisponibles, getEmpleadoVendedor, getAlquilerClientes, getClientesRegistrados, getAutomovilDisponible, getReservasPendientes, getAlquilerEspecifico} from '../controllers/getControllers.js';
+import {getAutoCapacidadMayorCinco, getCantidadAlquileres, getCantidadAutoBySucursal, getOrderAutoMarcaModelo, getClienteConAlquiler, getEmpleadosCargo, getReservasPorCliente, getAlquilerFecha ,getAutomovilCapacidad, getClientesDNI, getCostoAlquiler, getTotalAutomovilesDisponibles, getEmpleadoVendedor, getAlquilerClientes, getClientesRegistrados, getAutomovilDisponible, getReservasPendientes, getAlquilerEspecifico} from '../controllers/getControllers.js';
 
 const appCampus = Router();
 
@@ -19,6 +19,11 @@ appCampus.get('/automovilCapacidad', limitGet(), getAutomovilCapacidad);
 appCampus.get('/alquilerFecha', limitGet(), getAlquilerFecha);
 appCampus.get('/reservasPorCliente/:id_cliente', limitGet(), getReservasPorCliente) 
 appCampus.get('/empleadosCargo', limitGet(), getEmpleadosCargo) 
+appCampus.get('/clienteConAlquiler', limitGet(), getClienteConAlquiler); 
+appCampus.get('/OrderAutoMarcaModelo', limitGet(), getOrderAutoMarcaModelo); 
+appCampus.get('/cantidadAutoBySucursal', limitGet(), getCantidadAutoBySucursal); 
+appCampus.get('/cantidadAlquileres', limitGet(), getCantidadAlquileres); 
+appCampus.get('/autoCapacidadMayorCinco', limitGet(), getAutoCapacidadMayorCinco); 
 
 appCampus.post('/', limitGet(), appMiddlewareCampusVerify, appDTOData, async(req, res) => {
     let resul;
