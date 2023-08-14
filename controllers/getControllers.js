@@ -477,6 +477,72 @@ const getAutoCapacidadMayorCinco = async (req, res, next) => {
     }
 };
 
+/* 20. Obtener los datos del cliente que realizó la reserva con ID_Reserva específico. */
+const getReservaClienteEspecifico = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let reserva = db.collection('reserva');
+        let TotalAutomoviles = await reserva.aggregate([
+            {
+                $match: {
+                    reserva: parseInt(req.params.id_reserva)
+                }
+            },
+            {
+                $lookup: {
+                    from: "cliente",
+                    localField: "cliente",
+                    foreignField: "cliente",
+                    as: "datos_cliente"
+                }
+            },
+            {
+                $unwind: "$datos_cliente"
+            },
+            {
+                $project: {
+                    _id: 0,
+                    reserva: 1,
+                    cliente: "$datos_cliente.cliente",
+                    nombre: "$datos_cliente.nombre",
+                    apellido: "$datos_cliente.apellido",
+                    documento: "$datos_cliente.documento",
+                    direccion: "$datos_cliente.direccion",
+                    numero: "$datos_cliente.numero",
+                    Email: "$datos_cliente.Email"
+                }
+            }
+        ]).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+/* 21. Listar los alquileres con fecha de inicio entre '2023-07-05' y '2023-07-10'. */
+const getAlquileresEntrefecha = async (req, res, next) => {
+    if (!req.rateLimit) return;
+    try {
+        let db = await con();
+        let alquiler = db.collection('alquiler');
+        let TotalAutomoviles = await alquiler.find(
+            {
+                inicio: {
+                    $gte: "2023-07-05",
+                    $lte: "2023-07-10"
+                }
+            },
+            {
+                _id: 0
+            }
+        ).toArray();        
+        res.send(TotalAutomoviles); 
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
 export{
     getAlquilerClientes,
     getClientesRegistrados,
@@ -495,5 +561,7 @@ export{
     getOrderAutoMarcaModelo,
     getCantidadAutoBySucursal,
     getCantidadAlquileres,
-    getAutoCapacidadMayorCinco
+    getAutoCapacidadMayorCinco,
+    getReservaClienteEspecifico,
+    getAlquileresEntrefecha
 }
