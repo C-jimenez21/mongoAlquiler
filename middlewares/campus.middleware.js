@@ -4,9 +4,9 @@ import { Router } from "express";
 import {User} from '../routers/storage/usuario.js'
 import {con} from '../db/atlas.js'
 import {validate} from 'class-validator';
-import { log } from 'console';
 
 const appMiddlewareCampusVerify = Router();
+const appDTOData = Router();
 
 let db = await con();
 let usuario = db.collection('user');
