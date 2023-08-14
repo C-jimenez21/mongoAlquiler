@@ -12,7 +12,6 @@ appCampus.get('/', limitGet(), async(req, res) => {
     let result = await user.find({}).toArray();
     res.send(result);
     
-res.send("entre a GET campus");
 
 });
 
