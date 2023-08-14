@@ -1,19 +1,21 @@
 import { Router } from 'express';
+import {con} from '../db/atlas.js'
 import {limitGet} from '../limit/config.js';
 import {appMiddlewareCampusVerify, appDTOData} from '../middlewares/campus.middleware.js';
-
+import {getAutomovilCapacidad, getClientesDNI, getCostoAlquiler, getTotalAutomovilesDisponibles, getEmpleadoVendedor, getAlquilerClientes, getClientesRegistrados, getAutomovilDisponible, getReservasPendientes, getAlquilerEspecifico} from '../controllers/getControllers.js';
 
 const appCampus = Router();
 
-appCampus.get('/', limitGet(), async(req, res) => {
-    if(!req.rateLimit)return;
-    let db = await con();
-    let user = db.collection('user');
-    let result = await user.find({}).toArray();
-    res.send(result);
-    
-
-});
+appCampus.get('/clientesRegistrados', limitGet(), getClientesRegistrados);
+appCampus.get('/alquilerClientes', limitGet(), getAlquilerClientes);
+appCampus.get('/automovilDisponible', limitGet(), getAutomovilDisponible);
+appCampus.get('/reservasPendientes', limitGet(), getReservasPendientes);
+appCampus.get('/alquilerEspecifico/:id', limitGet(), getAlquilerEspecifico);
+appCampus.get('/empleadoVendedor', limitGet(), getEmpleadoVendedor);
+appCampus.get('/automovilesDisponibles', limitGet(), getTotalAutomovilesDisponibles);
+appCampus.get('/costoAlquiler/:id', limitGet(), getCostoAlquiler);
+appCampus.get('/clientesDNI/:DNI', limitGet(), getClientesDNI);
+appCampus.get('/automovilCapacidad', limitGet(), getAutomovilCapacidad);
 
 appCampus.post('/', limitGet(), appMiddlewareCampusVerify, appDTOData, async(req, res) => {
     let resul;
