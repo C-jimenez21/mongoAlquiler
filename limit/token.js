@@ -26,12 +26,12 @@ appToken.use("/:collection", async(req,res)=>{
         const jwt = await jwtconstructor
         .setProtectedHeader({alg:"HS256", typ: "JWT"})
         .setIssuedAt()
-        .setExpirationTime("5m")
+        .setExpirationTime("30m")
         .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
         req.data=jwt
         res.status(201).send({message: jwt});
    } catch (error) {
-    res.status(404).send({message: "Token Solicitado no valido"})
+    res.status(404).send({message: "Error al generar el token"})
    }
 })
 
