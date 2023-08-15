@@ -41,7 +41,7 @@ db.createCollection("cliente", {
                     bsonType: "string",
                     description: `{"status": "402", "message": "El parametro email no es obligatorio, pero debe ser un string con formato de correo"}`,
                     pattern: "^[a-zA-Z0-9.]+@",
-                },
+                }
             }
         },
     },

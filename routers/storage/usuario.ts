@@ -17,7 +17,7 @@ export class User{
      @Expose({name: 'edad_usuario'})
      @IsDefined({message: ()=>{ throw {status:422, message: "El parametro edad_usuario es obligatorio"}}})
      edad:number;
-     
+    
     constructor(data:Partial<User>){
         Object.assign(this, data);
         this.cc = 0;
