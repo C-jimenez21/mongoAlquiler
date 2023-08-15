@@ -27,9 +27,9 @@ export class cliente {
     @IsDefined({ message: () => { throw { status: 402, message: "El parametro telefono es obligatorio y debe ser un string" } } })
     numero: string;
 
-    @Expose({ name: 'email' })
-    @IsDefined({ message: () => { throw { status: 402, message: "El parametro email es obligatorio y debe ser un string" } } })
-    email: string;
+    @Expose({ name: 'Email' })
+    @IsDefined({ message: () => { throw { status: 402, message: "El parametro Email es obligatorio y debe ser un string" } } })
+    Email: string;
 
     constructor(data: Partial<cliente>) {
         Object.assign(this, data);
@@ -39,6 +39,6 @@ export class cliente {
         this.documento = "Faker";
         this.direccion = "Faker";
         this.numero = "Faker";
-        this.email = "example@correo.com";
+        this.Email = "example@correo.com";
     }
 }

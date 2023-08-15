@@ -18,7 +18,7 @@ export class cliente {
         this.documento = "Faker";
         this.direccion = "Faker";
         this.numero = "Faker";
-        this.email = "example@correo.com";
+        this.Email = "example@correo.com";
     }
 }
 __decorate([
@@ -52,7 +52,7 @@ __decorate([
     __metadata("design:type", String)
 ], cliente.prototype, "numero", void 0);
 __decorate([
-    Expose({ name: 'email' }),
-    IsDefined({ message: () => { throw { status: 402, message: "El parametro email es obligatorio y debe ser un string" }; } }),
+    Expose({ name: 'Email' }),
+    IsDefined({ message: () => { throw { status: 402, message: "El parametro Email es obligatorio y debe ser un string" }; } }),
     __metadata("design:type", String)
-], cliente.prototype, "email", void 0);
+], cliente.prototype, "Email", void 0);

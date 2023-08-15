@@ -77,3 +77,20 @@ db.user.insertMany([
     "age" : 18
 }
 ])
+
+
+use("DB_Limit_Mongo");
+db.usuario.js.insertOne(
+    {
+      _id: "echoFunction",
+      value : function(x) { return x; }
+    }
+ );
+
+
+ db.system.js.insertOne(
+    {
+      _id : "myAddFunction" ,
+      value : function (x, y){ return x + y; }
+    }
+ );

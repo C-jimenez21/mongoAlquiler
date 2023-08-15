@@ -34,11 +34,13 @@ appCampus.post('/:collection', limitGet(), appMiddlewareCampusVerify, appDTOData
     try {
         let db = await con();
         let result = db.collection(req.params.collection);
+        console.log("salta el error");
         let resRegister = await result.insertOne(req.body)
         res.status(201).send(resRegister);
     } catch (error) {
+        console.log(error.errInfo.details.schemaRulesNotSatisfied);
         //resul = JSON.parse(error.errInfo);
-        res.status(error).send(resul);
+        res.status(error).send(error);
     }
 });
 
