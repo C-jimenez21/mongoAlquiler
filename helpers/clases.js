@@ -1,8 +1,9 @@
 import {cliente} from '../routers/storage/cliente.js';
+import {alquiler} from '../routers/storage/alquiler.js';
 
 
 export const tablaJWT = {
-    "alquiler": "alquiler",
+    "alquiler": alquiler,
     "automovil": "automovil",
     "cliente": cliente,
     "empleado": "empleado",

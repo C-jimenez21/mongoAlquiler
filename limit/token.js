@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import {Router} from 'express';
 import { SignJWT, jwtVerify } from 'jose';
 import {cliente} from '../routers/storage/cliente.js';
+import {alquiler} from '../routers/storage/alquiler.js';
+import {login} from '../routers/storage/usuario.js';
 
 dotenv.config("../");
 
