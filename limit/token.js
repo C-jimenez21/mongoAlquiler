@@ -6,6 +6,7 @@ import { SignJWT, jwtVerify } from 'jose';
 import {cliente} from '../routers/storage/cliente.js';
 import {alquiler} from '../routers/storage/alquiler.js';
 import {login} from '../routers/storage/usuario.js';
+import { tablaJWT } from '../helpers/clases.js';
 
 dotenv.config("../");
 
@@ -22,7 +23,8 @@ appToken.use("/:collection", async(req,res)=>{
            //     id: req.params.id,
            //     nombre: req.params.nombre
            // }
-        let inst = plainToClass(eval(req.params.collection), {}, {ignoreDecorators: true});
+        
+        let inst = plainToClass((tablaJWT.hasOwnProperty(req.params.collection)) ? tablaJWT[req.params.collection] : error, {}, {ignoreDecorators: true});
         const encoder = new TextEncoder();
         const jwtconstructor = new SignJWT(Object.assign({}, classToPlain(inst)));
         const jwt = await jwtconstructor

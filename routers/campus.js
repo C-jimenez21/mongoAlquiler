@@ -6,26 +6,26 @@ import {getAlquileresEntrefecha, getReservaClienteEspecifico, getAutoCapacidadMa
 
 const appCampus = Router();
 
-appCampus.get('/clientesRegistrados', limitGet(),appMiddlewareCampusVerify,  getClientesRegistrados);
-appCampus.get('/alquilerClientes', limitGet(),appMiddlewareCampusVerify, getAlquilerClientes);
-appCampus.get('/automovilDisponible', limitGet(),appMiddlewareCampusVerify, getAutomovilDisponible);
-appCampus.get('/reservasPendientes', limitGet(),appMiddlewareCampusVerify, getReservasPendientes);
-appCampus.get('/alquilerEspecifico/:id', limitGet(),appMiddlewareCampusVerify, getAlquilerEspecifico);
-appCampus.get('/empleadoVendedor', limitGet(),appMiddlewareCampusVerify, getEmpleadoVendedor);
-appCampus.get('/automovilesDisponibles', limitGet(),appMiddlewareCampusVerify, getTotalAutomovilesDisponibles);
-appCampus.get('/costoAlquiler/:id', limitGet(),appMiddlewareCampusVerify, getCostoAlquiler);
-appCampus.get('/clientesDNI/:DNI', limitGet(),appMiddlewareCampusVerify, getClientesDNI);
-appCampus.get('/automovilCapacidad', limitGet(),appMiddlewareCampusVerify, getAutomovilCapacidad);
-appCampus.get('/alquilerFecha', limitGet(),appMiddlewareCampusVerify, getAlquilerFecha);
-appCampus.get('/reservasPorCliente/:id_cliente', limitGet(),appMiddlewareCampusVerify, getReservasPorCliente) 
-appCampus.get('/empleadosCargo', limitGet(),appMiddlewareCampusVerify, getEmpleadosCargo) 
-appCampus.get('/clienteConAlquiler', limitGet(),appMiddlewareCampusVerify, getClienteConAlquiler); 
-appCampus.get('/OrderAutoMarcaModelo', limitGet(),appMiddlewareCampusVerify, getOrderAutoMarcaModelo); 
+appCampus.get('/cliente/clientesRegistrados', limitGet(),appMiddlewareCampusVerify,  getClientesRegistrados);
+appCampus.get('/alquiler/alquilerClientes', limitGet(),appMiddlewareCampusVerify, getAlquilerClientes);
+appCampus.get('/automovil/automovilDisponible', limitGet(),appMiddlewareCampusVerify, getAutomovilDisponible);
+appCampus.get('/reserva/reservasPendientes', limitGet(),appMiddlewareCampusVerify, getReservasPendientes);
+appCampus.get('/alquiler/alquilerEspecifico/:id', limitGet(),appMiddlewareCampusVerify, getAlquilerEspecifico);
+appCampus.get('/empleado/empleadoVendedor', limitGet(),appMiddlewareCampusVerify, getEmpleadoVendedor);
+appCampus.get('/automovil/automovilesDisponibles', limitGet(),appMiddlewareCampusVerify, getTotalAutomovilesDisponibles);
+appCampus.get('/alquiler/costoAlquiler/:id', limitGet(),appMiddlewareCampusVerify, getCostoAlquiler);
+appCampus.get('/cliente/clientesDNI/:DNI', limitGet(),appMiddlewareCampusVerify, getClientesDNI);
+appCampus.get('/automovil/automovilCapacidad', limitGet(),appMiddlewareCampusVerify, getAutomovilCapacidad);
+appCampus.get('/alquiler/alquilerFecha', limitGet(),appMiddlewareCampusVerify, getAlquilerFecha);
+appCampus.get('/reserva/reservasPorCliente/:id_cliente', limitGet(),appMiddlewareCampusVerify, getReservasPorCliente) 
+appCampus.get('/empleado/empleadosCargo', limitGet(),appMiddlewareCampusVerify, getEmpleadosCargo) 
+appCampus.get('/cliente/clienteConAlquiler', limitGet(),appMiddlewareCampusVerify, getClienteConAlquiler); 
+appCampus.get('/automovil/OrderAutoMarcaModelo', limitGet(),appMiddlewareCampusVerify, getOrderAutoMarcaModelo); 
 appCampus.get('/sucursal/cantidadAutoBySucursal', limitGet(),appMiddlewareCampusVerify, getCantidadAutoBySucursal); 
-appCampus.get('/cantidadAlquileres', limitGet(),appMiddlewareCampusVerify, getCantidadAlquileres); 
-appCampus.get('/autoCapacidadMayorCinco', limitGet(),appMiddlewareCampusVerify, getAutoCapacidadMayorCinco); 
-appCampus.get('/reservaClienteEspecifico/:id_reserva', limitGet(),appMiddlewareCampusVerify, getReservaClienteEspecifico); 
-appCampus.get('/alquileresEntrefecha', limitGet(),appMiddlewareCampusVerify, getAlquileresEntrefecha); 
+appCampus.get('/alquiler/cantidadAlquileres', limitGet(),appMiddlewareCampusVerify, getCantidadAlquileres); 
+appCampus.get('/automovil/autoCapacidadMayorCinco', limitGet(),appMiddlewareCampusVerify, getAutoCapacidadMayorCinco); 
+appCampus.get('/reserva/reservaClienteEspecifico/:id_reserva', limitGet(),appMiddlewareCampusVerify, getReservaClienteEspecifico); 
+appCampus.get('/alquiler/alquileresEntrefecha', limitGet(),appMiddlewareCampusVerify, getAlquileresEntrefecha); 
 
 appCampus.post('/:collection', limitGet(), appMiddlewareCampusVerify, appDTOData, async(req, res) => {
     let resul;
