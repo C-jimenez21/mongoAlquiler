@@ -3,7 +3,7 @@ import { plainToClass, classToPlain } from 'class-transformer';
 import dotenv from 'dotenv';
 import {Router} from 'express';
 import { SignJWT, jwtVerify } from 'jose';
-import {User} from '../routers/storage/usuario.js';
+import {cliente} from '../routers/storage/cliente.js';
 
 dotenv.config("../");
 

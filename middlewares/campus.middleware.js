@@ -1,9 +1,10 @@
 import 'reflect-metadata'
 import { classToPlain, plainToClass, plainToInstance } from "class-transformer";
 import { Router } from "express";
-import {User} from '../routers/storage/usuario.js'
+import {cliente} from '../routers/storage/cliente.js'
 import {con} from '../db/atlas.js'
-import {validate} from 'class-validator';
+import {validate} from 'class-validator'
+import { tablaJWT } from '../helpers/clases.js';
 
 const appMiddlewareCampusVerify = Router();
 const appDTOData = Router();
@@ -13,18 +14,19 @@ let usuario = db.collection('user');
 
 
 appMiddlewareCampusVerify.use('/', async(req, res, next) => {
+    let classs = tablaJWT[req.path.split('/')[1]]
     if(!req.rateLimit) return;
     let {payload} = req.data;
     const {iat, exp, ...newPayload} = payload; 
     payload = newPayload
     //delete payload.iat;
     //delete payload.exp;
-
-    let clone = JSON.stringify(classToPlain(plainToClass(User, {}, {ignoreDecorators:true})));
+   
+    let clone = JSON.stringify(classToPlain(plainToClass(classs, {}, {ignoreDecorators:true})));
     console.log(clone);
     console.log(JSON.stringify(payload));
     let verify = clone === JSON.stringify(payload);
-    (!verify) ? res.status(406).send({status:406, message: "No Autorizado"}):next()
+    (!verify) ? res.status(406).send({status:406, message: "No Autorizado"}): next()
   /**   
     try {
         let instanceData = plainToInstance(User, (req.method == 'POST' || req.method == 'PUT') ? req.body : {}, { excludeExtraneousValues: true });
@@ -51,7 +53,9 @@ appMiddlewareCampusVerify.use('/', async(req, res, next) => {
 
 appDTOData.use( async(req,res,next) => {
     try {
-        let data = plainToClass(User, req.body);
+        let classs = tablaJWT[req.path.split('/')[1]] // Nombre de la clase como string
+        console.log(classs);
+        let data = plainToClass(classs, req.body);
         await validate(data);
         req.body = JSON.parse(JSON.stringify(data));
         req.data = undefined;
