@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // import {con} from '../DB/connect.js';
 import { Expose, Transform } from 'class-transformer';
 import { IsDefined } from 'class-validator';
-export class User {
+export class login {
     constructor(data) {
         Object.assign(this, data);
         this.cc = 0;
@@ -22,12 +22,12 @@ __decorate([
     Expose({ name: 'Cedula' }),
     IsDefined({ message: () => { throw { status: 422, message: "El parametro  Cedula es obligatorio" }; } }),
     __metadata("design:type", Number)
-], User.prototype, "cc", void 0);
+], login.prototype, "cc", void 0);
 __decorate([
     Expose({ name: 'nombre_usuario' }),
     IsDefined({ message: () => { throw { status: 422, message: "El parametro nombre_usuario es obligatorio" }; } }),
     __metadata("design:type", String)
-], User.prototype, "nombre", void 0);
+], login.prototype, "nombre", void 0);
 __decorate([
     Expose({ name: 'apellido_usuario' }),
     Transform(({ value }) => { if (value)
@@ -35,9 +35,9 @@ __decorate([
     else
         "faker"; }),
     __metadata("design:type", String)
-], User.prototype, "apellido", void 0);
+], login.prototype, "apellido", void 0);
 __decorate([
     Expose({ name: 'edad_usuario' }),
     IsDefined({ message: () => { throw { status: 422, message: "El parametro edad_usuario es obligatorio" }; } }),
     __metadata("design:type", Number)
-], User.prototype, "edad", void 0);
+], login.prototype, "edad", void 0);

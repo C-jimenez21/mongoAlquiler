@@ -1,7 +1,7 @@
 // import {con} from '../DB/connect.js';
 import { Expose, Transform } from 'class-transformer';
 import { IsNumber, IsDefined, IsString, IsEmail} from 'class-validator';
-export class User{
+export class login{
      @Expose({name: 'Cedula'})
      @IsDefined({message: ()=>{ throw {status:422, message: "El parametro  Cedula es obligatorio"}}})
      cc:number;
@@ -18,7 +18,7 @@ export class User{
      @IsDefined({message: ()=>{ throw {status:422, message: "El parametro edad_usuario es obligatorio"}}})
      edad:number;
     
-    constructor(data:Partial<User>){
+    constructor(data:Partial<login>){
         Object.assign(this, data);
         this.cc = 0;
         this.nombre = "Faker";
