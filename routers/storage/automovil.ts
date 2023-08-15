@@ -1,7 +1,7 @@
 import { Expose, Transform } from 'class-transformer';
 import { IsDefined } from 'class-validator';
 
-export class Auto {
+export class automovil {
 
     @Expose({ name: 'ID_Automovil' })
     @IsDefined({ message: () => { throw { status: 422, message: `El parametro ID_Automovil es obligatorio y debe ser un numero entero (int).`}}})
@@ -31,7 +31,7 @@ export class Auto {
     @IsDefined({ message: () => { throw { status: 422, message: `El parametro Precio_Por_Dia es obligatorio y debe ser un numero entero (int).`}}})
     precio_diaro: number;
 
-    constructor(data: Partial<Auto>) {
+    constructor(data: Partial<automovil>) {
         this.automovil = 0,
         this.marca = "Faker",
         this.modelo = "Faker",

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Expose } from 'class-transformer';
 import { IsDefined } from 'class-validator';
-export class Auto {
+export class automovil {
     constructor(data) {
         this.automovil = 0,
             this.marca = "Faker",
@@ -24,34 +24,34 @@ __decorate([
     Expose({ name: 'ID_Automovil' }),
     IsDefined({ message: () => { throw { status: 422, message: `El parametro ID_Automovil es obligatorio y debe ser un numero entero (int).` }; } }),
     __metadata("design:type", Number)
-], Auto.prototype, "automovil", void 0);
+], automovil.prototype, "automovil", void 0);
 __decorate([
     Expose({ name: 'Marca_Auto' }),
     IsDefined({ message: () => { throw { status: 422, message: `El parametro Marca_Auto es obligatorio y debe ser un string` }; } }),
     __metadata("design:type", String)
-], Auto.prototype, "marca", void 0);
+], automovil.prototype, "marca", void 0);
 __decorate([
     Expose({ name: 'Modelo_Auto' }),
     IsDefined({ message: () => { throw { status: 422, message: `El parametro Modelo_Auto es obligatorio y debe ser un string.` }; } }),
     __metadata("design:type", String)
-], Auto.prototype, "modelo", void 0);
+], automovil.prototype, "modelo", void 0);
 __decorate([
     Expose({ name: 'Anio_Auto' }),
     IsDefined({ message: () => { throw { status: 422, message: `El parametro Anio_Auto es obligatorio y debe ser un numero entero (int).` }; } }),
     __metadata("design:type", Number)
-], Auto.prototype, "anio", void 0);
+], automovil.prototype, "anio", void 0);
 __decorate([
     Expose({ name: 'Tipo_Auto' }),
     IsDefined({ message: () => { throw { status: 422, message: `El parametro Tipo_Auto es obligatorio y debe ser un string.` }; } }),
     __metadata("design:type", String)
-], Auto.prototype, "tipo", void 0);
+], automovil.prototype, "tipo", void 0);
 __decorate([
     Expose({ name: 'Capacidad_Auto' }),
     IsDefined({ message: () => { throw { status: 422, message: `El parametro Capacidad_Auto es obligatorio y debe ser un numero entero (int).` }; } }),
     __metadata("design:type", Number)
-], Auto.prototype, "capacidad", void 0);
+], automovil.prototype, "capacidad", void 0);
 __decorate([
     Expose({ name: 'Precio_Por_Dia' }),
     IsDefined({ message: () => { throw { status: 422, message: `El parametro Precio_Por_Dia es obligatorio y debe ser un numero entero (int).` }; } }),
     __metadata("design:type", Number)
-], Auto.prototype, "precio_diaro", void 0);
+], automovil.prototype, "precio_diaro", void 0);
