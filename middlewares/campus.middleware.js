@@ -2,6 +2,8 @@ import 'reflect-metadata'
 import { classToPlain, plainToClass, plainToInstance } from "class-transformer";
 import { Router } from "express";
 import {cliente} from '../routers/storage/cliente.js'
+import {login} from '../routers/storage/usuario.js'
+import {alquiler} from '../routers/storage/alquiler.js'
 import {con} from '../db/atlas.js'
 import {validate} from 'class-validator'
 import { tablaJWT } from '../helpers/clases.js';
@@ -22,7 +24,7 @@ appMiddlewareCampusVerify.use('/', async(req, res, next) => {
     //delete payload.iat;
     //delete payload.exp;
    
-    let clone = JSON.stringify(classToPlain(plainToClass(classs, {}, {ignoreDecorators:true})));
+    let clone = JSON.stringify(classToPlain(plainToClass(login, {}, {ignoreDecorators:true})));
     console.log(clone);
     console.log(JSON.stringify(payload));
     let verify = clone === JSON.stringify(payload);
@@ -55,7 +57,7 @@ appDTOData.use( async(req,res,next) => {
     try {
         let classs = tablaJWT[req.path.split('/')[1]] // Nombre de la clase como string
         console.log(classs);
-        let data = plainToClass(classs, req.body);
+        let data = plainToClass(login, req.body);
         await validate(data);
         req.body = JSON.parse(JSON.stringify(data));
         req.data = undefined;

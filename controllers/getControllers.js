@@ -1,5 +1,5 @@
 import {con} from '../db/atlas.js';
-/* 2. Mostrar todos los clientes registrados en la base de datos.*/
+
 const getClientesRegistrados = async (req, res, next) => {
     if (!req.rateLimit) return;
     try {

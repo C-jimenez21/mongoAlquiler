@@ -6,26 +6,26 @@ import {getAlquileresEntrefecha, getReservaClienteEspecifico, getAutoCapacidadMa
 
 const appCampus = Router();
 
-appCampus.get('/clientesRegistrados', limitGet(), getClientesRegistrados);
-appCampus.get('/alquilerClientes', limitGet(), getAlquilerClientes);
-appCampus.get('/automovilDisponible', limitGet(), getAutomovilDisponible);
-appCampus.get('/reservasPendientes', limitGet(), getReservasPendientes);
-appCampus.get('/alquilerEspecifico/:id', limitGet(), getAlquilerEspecifico);
-appCampus.get('/empleadoVendedor', limitGet(), getEmpleadoVendedor);
-appCampus.get('/automovilesDisponibles', limitGet(), getTotalAutomovilesDisponibles);
-appCampus.get('/costoAlquiler/:id', limitGet(), getCostoAlquiler);
-appCampus.get('/clientesDNI/:DNI', limitGet(), getClientesDNI);
-appCampus.get('/automovilCapacidad', limitGet(), getAutomovilCapacidad);
-appCampus.get('/alquilerFecha', limitGet(), getAlquilerFecha);
-appCampus.get('/reservasPorCliente/:id_cliente', limitGet(), getReservasPorCliente) 
-appCampus.get('/empleadosCargo', limitGet(), getEmpleadosCargo) 
-appCampus.get('/clienteConAlquiler', limitGet(), getClienteConAlquiler); 
-appCampus.get('/OrderAutoMarcaModelo', limitGet(), getOrderAutoMarcaModelo); 
-appCampus.get('/cantidadAutoBySucursal', limitGet(), getCantidadAutoBySucursal); 
-appCampus.get('/cantidadAlquileres', limitGet(), getCantidadAlquileres); 
-appCampus.get('/autoCapacidadMayorCinco', limitGet(), getAutoCapacidadMayorCinco); 
-appCampus.get('/reservaClienteEspecifico/:id_reserva', limitGet(), getReservaClienteEspecifico); 
-appCampus.get('/alquileresEntrefecha', limitGet(), getAlquileresEntrefecha); 
+appCampus.get('/clientesRegistrados', limitGet(),appMiddlewareCampusVerify,  getClientesRegistrados);
+appCampus.get('/alquilerClientes', limitGet(),appMiddlewareCampusVerify, getAlquilerClientes);
+appCampus.get('/automovilDisponible', limitGet(),appMiddlewareCampusVerify, getAutomovilDisponible);
+appCampus.get('/reservasPendientes', limitGet(),appMiddlewareCampusVerify, getReservasPendientes);
+appCampus.get('/alquilerEspecifico/:id', limitGet(),appMiddlewareCampusVerify, getAlquilerEspecifico);
+appCampus.get('/empleadoVendedor', limitGet(),appMiddlewareCampusVerify, getEmpleadoVendedor);
+appCampus.get('/automovilesDisponibles', limitGet(),appMiddlewareCampusVerify, getTotalAutomovilesDisponibles);
+appCampus.get('/costoAlquiler/:id', limitGet(),appMiddlewareCampusVerify, getCostoAlquiler);
+appCampus.get('/clientesDNI/:DNI', limitGet(),appMiddlewareCampusVerify, getClientesDNI);
+appCampus.get('/automovilCapacidad', limitGet(),appMiddlewareCampusVerify, getAutomovilCapacidad);
+appCampus.get('/alquilerFecha', limitGet(),appMiddlewareCampusVerify, getAlquilerFecha);
+appCampus.get('/reservasPorCliente/:id_cliente', limitGet(),appMiddlewareCampusVerify, getReservasPorCliente) 
+appCampus.get('/empleadosCargo', limitGet(),appMiddlewareCampusVerify, getEmpleadosCargo) 
+appCampus.get('/clienteConAlquiler', limitGet(),appMiddlewareCampusVerify, getClienteConAlquiler); 
+appCampus.get('/OrderAutoMarcaModelo', limitGet(),appMiddlewareCampusVerify, getOrderAutoMarcaModelo); 
+appCampus.get('/sucursal/cantidadAutoBySucursal', limitGet(),appMiddlewareCampusVerify, getCantidadAutoBySucursal); 
+appCampus.get('/cantidadAlquileres', limitGet(),appMiddlewareCampusVerify, getCantidadAlquileres); 
+appCampus.get('/autoCapacidadMayorCinco', limitGet(),appMiddlewareCampusVerify, getAutoCapacidadMayorCinco); 
+appCampus.get('/reservaClienteEspecifico/:id_reserva', limitGet(),appMiddlewareCampusVerify, getReservaClienteEspecifico); 
+appCampus.get('/alquileresEntrefecha', limitGet(),appMiddlewareCampusVerify, getAlquileresEntrefecha); 
 
 appCampus.post('/:collection', limitGet(), appMiddlewareCampusVerify, appDTOData, async(req, res) => {
     let resul;
