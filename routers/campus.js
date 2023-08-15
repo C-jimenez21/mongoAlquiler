@@ -27,14 +27,18 @@ appCampus.get('/autoCapacidadMayorCinco', limitGet(), getAutoCapacidadMayorCinco
 appCampus.get('/reservaClienteEspecifico/:id_reserva', limitGet(), getReservaClienteEspecifico); 
 appCampus.get('/alquileresEntrefecha', limitGet(), getAlquileresEntrefecha); 
 
-appCampus.post('/', limitGet(), appMiddlewareCampusVerify, appDTOData, async(req, res) => {
+appCampus.post('/:collection', limitGet(), appMiddlewareCampusVerify, appDTOData, async(req, res) => {
     let resul;
+    let dato = typeof(req.params.collection)
+    console.log(dato);
     try {
-        resul = await usuario.insertOne(req.body);
-        res.status(201).send(resul);
+        let db = await con();
+        let result = db.collection(req.params.collection);
+        let resRegister = await result.insertOne(req.body)
+        res.status(201).send(resRegister);
     } catch (error) {
-        resul = JSON.parse(error.errInfo.details.schemaRulesNotSatisfied[0].propertiesNotSatisfied[0].description);
-        res.status(resul.status).send(resul);
+        //resul = JSON.parse(error.errInfo);
+        res.status(error).send(resul);
     }
 });
 
